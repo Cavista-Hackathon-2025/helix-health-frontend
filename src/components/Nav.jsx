@@ -15,8 +15,8 @@ const Nav = () => {
   Sign in
 </button>
         </div>
-        <div className="w-[8rem] py-2 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-300 hover:to-purple-500 transition-all duration-300 text-white text-center font-bold">
-          <button className="rounded-full ">Log in</button>
+        <div>
+          <button className="rounded-full border-2 border-r-purple-500 text-black font-bold hover:bg-purple-700 hover:text-white hover:border-none w-[8rem] py-2">Log in</button>
         </div>
       </div>
     </nav>

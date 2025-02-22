@@ -9,7 +9,9 @@ import AdditionalSymptoms from "@/components/steps/additional-symptoms"
 import PossibleTriggers from "@/components/steps/possible-triggers"
 import LifestyleFactors from "@/components/steps/lifestyle-factors"
 import UrgencyAssessment from "@/components/steps/urgency-assessment"
-import Nav from "@/components/Nav"
+// import Nav from "@/components/Nav"
+import AuthenticatedNav from "@/components/AuthenticatedNav"
+import { ExtraPromptUpload } from "@/components/steps/Extra-prompt-upload"
 
 export default function SymptomForm() {
   const [step, setStep] = useState(1)
@@ -46,6 +48,10 @@ export default function SymptomForm() {
     diet: "",
     // Urgency Assessment
     emergencySymptoms: [],
+    //Extra Prompt data
+    medicalImages: [],
+    userDefinedPrompt: [],
+
   })
 
   const totalSteps = 8
@@ -83,7 +89,7 @@ export default function SymptomForm() {
       case 7:
         return <UrgencyAssessment data={formData} updateData={updateFormData} />
       case 8:
-        return <UrgencyAssessment data={formData} updateData={updateFormData} />
+        return <ExtraPromptUpload data={formData} updateData={updateFormData} />
       default:
         return null
     }
@@ -91,7 +97,8 @@ export default function SymptomForm() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 p-4 md:p-8">
-      <Nav />
+      {/* <Nav /> */}
+      <AuthenticatedNav />
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
           
