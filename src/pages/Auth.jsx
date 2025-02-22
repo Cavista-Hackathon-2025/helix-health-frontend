@@ -27,7 +27,7 @@ function Auth() {
 
   if (loading) return <FullScreenLoader />
 
-  if (!authenticated) return <Navigate to="/login" />
+  // if (!authenticated) return <Navigate to="/login" />
   return (
     <div>
       <AuthenticatedNav />

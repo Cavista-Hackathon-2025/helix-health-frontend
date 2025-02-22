@@ -10,6 +10,7 @@ import SymptomForm from "./pages/wizard-pages/page";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import store from "./redux/store";
 import Auth from "./pages/Auth";
+import DiagnosisResult from "./pages/diagnosisResult";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/" element={<Auth />}>
             <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/symptoms/new" element={<SymptomForm />} />
+            <Route path="/diagnosis/new" element={<SymptomForm />} />
+            <Route path="/diagnosis/:id" element={<DiagnosisResult />} />
             <Route path="/schedule/new" element={<PrescriptionScheduleForm />} />
             <Route path="/profile" element={<UserProfile />} />
           </Route>
