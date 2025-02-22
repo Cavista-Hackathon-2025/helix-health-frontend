@@ -9,6 +9,7 @@ import AdditionalSymptoms from "@/components/steps/additional-symptoms"
 import PossibleTriggers from "@/components/steps/possible-triggers"
 import LifestyleFactors from "@/components/steps/lifestyle-factors"
 import UrgencyAssessment from "@/components/steps/urgency-assessment"
+import Nav from "@/components/Nav"
 
 export default function SymptomForm() {
   const [step, setStep] = useState(1)
@@ -88,12 +89,11 @@ export default function SymptomForm() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 p-4 md:p-8">
+      <Nav />
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
-          <h1 className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-4xl font-bold text-transparent">
-            Helix
-          </h1>
-          <p className="text-purple-600">AI Symptom Analysis</p>
+          
+          <h1 className="font-bold  text-purple-600 text-4xl">AI Symptom Analysis</h1>
         </div>
 
         {/* Progress Bar */}
