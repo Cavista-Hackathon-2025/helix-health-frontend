@@ -29,7 +29,7 @@ function Auth() {
 
   // if (!authenticated) return <Navigate to="/login" />
   return (
-    <div>
+    <div className='bg-[#FAF5FF] '>
       <AuthenticatedNav />
       <Outlet />
     </div>

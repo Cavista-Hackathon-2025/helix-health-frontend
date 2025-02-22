@@ -32,7 +32,7 @@ export default function DiagnosisResult({
   advice = demoData.advice,
 }) {
   return (
-    <div className="min-h-screen bg-[#FAF5FF] p-6 px-[10%]">
+    <div className="min-h-screen p-6 px-[10%]">
       <div className="space-y-8">
         <h1 className="text-center text-4xl font-bold text-[#A855F7]">AI Diagnosis Results</h1>
 
