@@ -48,7 +48,7 @@ export default function SymptomForm() {
     emergencySymptoms: [],
   })
 
-  const totalSteps = 7
+  const totalSteps = 8
 
   const updateFormData = (newData) => {
     setFormData((prev) => ({ ...prev, ...newData }))
@@ -81,6 +81,8 @@ export default function SymptomForm() {
       case 6:
         return <LifestyleFactors data={formData} updateData={updateFormData} />
       case 7:
+        return <UrgencyAssessment data={formData} updateData={updateFormData} />
+      case 8:
         return <UrgencyAssessment data={formData} updateData={updateFormData} />
       default:
         return null
