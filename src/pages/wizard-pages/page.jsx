@@ -16,12 +16,7 @@ import { ExtraPromptUpload } from "@/components/steps/Extra-prompt-upload"
 export default function SymptomForm() {
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({
-    // Basic Information
-    age: "",
-    gender: "",
-    weight: "",
-    height: "",
-    // Symptom Identification
+   // Symptom Identification
     symptoms: [],
     symptomDate: null,
     severity: "",
@@ -50,11 +45,11 @@ export default function SymptomForm() {
     emergencySymptoms: [],
     //Extra Prompt data
     medicalImages: [],
-    userDefinedPrompt: [],
+    extraPrompts: "",
 
   })
 
-  const totalSteps = 8
+  const totalSteps = 7
 
   const updateFormData = (newData) => {
     setFormData((prev) => ({ ...prev, ...newData }))
@@ -75,20 +70,18 @@ export default function SymptomForm() {
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <BasicInformation data={formData} updateData={updateFormData} />
-      case 2:
         return <SymptomIdentification data={formData} updateData={updateFormData} />
-      case 3:
+      case 2:
         return <SymptomContext data={formData} updateData={updateFormData} />
-      case 4:
+      case 3:
         return <AdditionalSymptoms data={formData} updateData={updateFormData} />
-      case 5:
+      case 4:
         return <PossibleTriggers data={formData} updateData={updateFormData} />
-      case 6:
+      case 5:
         return <LifestyleFactors data={formData} updateData={updateFormData} />
-      case 7:
+      case 6:
         return <UrgencyAssessment data={formData} updateData={updateFormData} />
-      case 8:
+      case 7:
         return <ExtraPromptUpload data={formData} updateData={updateFormData} />
       default:
         return null
