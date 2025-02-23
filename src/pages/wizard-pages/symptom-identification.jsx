@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 "use client"
 
 import { Label } from "@/components/ui/label"
@@ -61,7 +62,7 @@ export default function SymptomIdentification({ data, updateData }) {
             <OtherInput
               value={data.otherSymptoms || ""}
               onChange={(e) => updateData({ otherSymptoms: e.target.value })}
-              placeholder="Please specify other symptoms"
+              placeholder="Please specify other symptoms (Seperate with comma)"
             />
           )}
         </div>

@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import { Button } from "../ui/button";
+import { Button } from "../../components/ui/button";
 import { useState } from "react";
 import { FileUp, FileText, X } from "lucide-react";
-import { Textarea } from "../ui/textarea";
+import { Textarea } from "../../components/ui/textarea";
 
-export const ExtraPromptUpload = ({ data, updateData }) => {
+export const ExtraPromptUpload = ({ data, updateData, onSubmit }) => {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [files, setFiles] = useState([]);
 
@@ -13,15 +13,17 @@ export const ExtraPromptUpload = ({ data, updateData }) => {
     if (selectedFiles.length > 0) {
       setFiles([...files, ...selectedFiles]);
     }
+    updateData({ ...data, files: [...(data.files || []), ...selectedFiles] });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateData({ ...data, extraPrompt: textAreaValue, medicalImages: files });
+    onSubmit();
   };
 
   const handleTextInput = (e) => {
     setTextAreaValue(e.target.value);
+    updateData({ ...data, extraInformation: e.target.value });
   };
 
   const handleRemoveFile = (index) => {
@@ -67,6 +69,9 @@ export const ExtraPromptUpload = ({ data, updateData }) => {
                 multiple
               />
             </label>
+          </Button>
+          <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700">
+            Submit
           </Button>
         </form>
         {files.length > 0 && (

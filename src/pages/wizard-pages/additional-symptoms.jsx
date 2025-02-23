@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 "use client"
 
 import { Label } from "@/components/ui/label"
@@ -78,7 +79,7 @@ export default function AdditionalSymptoms({ data, updateData }) {
             <OtherInput
               value={data.otherAdditionalSymptoms || ""}
               onChange={(e) => updateData({ otherAdditionalSymptoms: e.target.value })}
-              placeholder="Please specify other symptoms"
+              placeholder="Please specify other symptoms (Seperate with comma)"
             />
           )}
         </div>
@@ -101,7 +102,7 @@ export default function AdditionalSymptoms({ data, updateData }) {
             <OtherInput
               value={data.otherMedicalConditions || ""}
               onChange={(e) => updateData({ otherMedicalConditions: e.target.value })}
-              placeholder="Please specify other conditions"
+              placeholder="Please specify other conditions (Seperate with comma)"
             />
           )}
         </div>

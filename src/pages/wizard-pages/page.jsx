@@ -2,21 +2,23 @@ import { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import BasicInformation from "@/components/steps/basic-information"
-import SymptomIdentification from "@/components/steps/symptom-identification"
-import SymptomContext from "@/components/steps/symptom-context"
-import AdditionalSymptoms from "@/components/steps/additional-symptoms"
-import PossibleTriggers from "@/components/steps/possible-triggers"
-import LifestyleFactors from "@/components/steps/lifestyle-factors"
-import UrgencyAssessment from "@/components/steps/urgency-assessment"
+// import BasicInformation from "@/pages/wizard-pages/basic-information"
+import SymptomIdentification from "@/pages/wizard-pages/symptom-identification"
+import SymptomContext from "@/pages/wizard-pages/symptom-context"
+import AdditionalSymptoms from "@/pages/wizard-pages/additional-symptoms"
+import PossibleTriggers from "@/pages/wizard-pages/possible-triggers"
+import LifestyleFactors from "@/pages/wizard-pages/lifestyle-factors"
+import UrgencyAssessment from "@/pages/wizard-pages/urgency-assessment"
 // import Nav from "@/components/Nav"
 import AuthenticatedNav from "@/components/AuthenticatedNav"
-import { ExtraPromptUpload } from "@/components/steps/Extra-prompt-upload"
+import { ExtraPromptUpload } from "@/pages/wizard-pages/Extra-prompt-upload"
+import { Loading } from "notiflix"
+import { Post } from "@/utils/http"
 
 export default function SymptomForm() {
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({
-   // Symptom Identification
+    // Symptom Identification
     symptoms: [],
     symptomDate: null,
     severity: "",
@@ -44,7 +46,7 @@ export default function SymptomForm() {
     // Urgency Assessment
     emergencySymptoms: [],
     //Extra Prompt data
-    medicalImages: [],
+    images: [],
     extraPrompts: "",
 
   })
@@ -67,6 +69,19 @@ export default function SymptomForm() {
     }
   }
 
+  const handleSubmit = async () => {
+    Loading.standard("Analyzing Please Wait....")
+    const images = formData.files
+    const prompt = { ...formData, images: undefined }
+    const formData = new FormData()
+    formData.append("prompt", JSON.stringify(prompt))
+    images.forEach(image => {
+      formData.append("images", image, image.name)
+    })
+    const { data, err } = await Post("/api/user/prompt", formData)
+    Loading.remove()
+  }
+
   const renderStep = () => {
     switch (step) {
       case 1:
@@ -82,7 +97,7 @@ export default function SymptomForm() {
       case 6:
         return <UrgencyAssessment data={formData} updateData={updateFormData} />
       case 7:
-        return <ExtraPromptUpload data={formData} updateData={updateFormData} />
+        return <ExtraPromptUpload data={formData} updateData={updateFormData} onSubmit={handleSubmit} />
       default:
         return null
     }
@@ -90,11 +105,9 @@ export default function SymptomForm() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 p-4 md:p-8">
-      {/* <Nav /> */}
-      <AuthenticatedNav />
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
-          
+
           <h1 className="font-bold  text-purple-600 text-4xl">AI Symptom Analysis</h1>
         </div>
 

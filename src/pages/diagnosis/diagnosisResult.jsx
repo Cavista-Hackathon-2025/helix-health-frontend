@@ -3,7 +3,7 @@ import parse from "html-react-parser"
 import { Card } from "@/components/ui/card"
 
 const demoData = {
-  result: "<div>Demo response</div>",
+  result: "<div class='container mx-auto p-6 bg-white rounded-lg shadow-lg'><div class='mb-8 bg-blue-50 p-6 rounded-lg'><h1 class='text-3xl font-bold text-blue-800 mb-4'>Medical Assessment Report</h1><p class='text-red-600 font-semibold'>⚠️ Attention: Given your travel history and symptoms, immediate medical attention is recommended.</p></div><div class='grid grid-cols-1 md:grid-cols-2 gap-6'><div class='bg-gray-50 p-4 rounded-lg'><h2 class='text-xl font-semibold text-gray-800 mb-3'>Primary Symptoms Analysis</h2><ul class='list-disc pl-5'><li class='text-gray-700'>Fever onset: 2025-02-15</li><li class='text-gray-700'>Moderate severity with worsening progression</li><li class='text-gray-700'>Complicated by pre-existing asthma condition</li></ul></div><div class='bg-gray-50 p-4 rounded-lg'><h2 class='text-xl font-semibold text-gray-800 mb-3'>Risk Assessment</h2><ul class='list-disc pl-5'><li class='text-red-500'>Recent travel to Lagos, Nigeria</li><li class='text-red-500'>Contact with sick person</li><li class='text-yellow-600'>Environmental exposure to dust and pollution</li></ul></div></div><div class='mt-6 bg-green-50 p-4 rounded-lg'><h2 class='text-xl font-semibold text-green-800 mb-3'>Treatment Recommendations</h2><ol class='list-decimal pl-5'><li class='mb-2'>Continue prescribed Albuterol as directed for asthma</li><li class='mb-2'>Implement suggested dietary modifications</li><li class='mb-2'>Monitor temperature every 4 hours</li><li class='mb-2'>Rest for minimum 8 hours daily</li><li class='mb-2'>Avoid cold exposure</li></ol></div><div class='mt-6 bg-yellow-50 p-4 rounded-lg'><h2 class='text-xl font-semibold text-yellow-800 mb-3'>Warning Signs to Watch</h2><p class='text-red-600'>Seek immediate emergency care if you experience:</p><ul class='list-disc pl-5'><li>Severe difficulty breathing</li><li>Chest pain</li><li>High fever unresponsive to medication</li><li>Worsening asthma symptoms</li></ul></div><div class='mt-6 text-sm text-gray-600'><p>Follow-up recommended in 48-72 hours if symptoms persist or worsen.</p></div></div>",
   diets: [
     {
       name: "Increase Fluid Intake",
@@ -32,7 +32,7 @@ export default function DiagnosisResult({
   advice = demoData.advice,
 }) {
   return (
-    <div className="min-h-screen p-6 px-[10%]">
+    <div className="min-h-screen p-6 lg:px-[10%]">
       <div className="space-y-8">
         <h1 className="text-center text-4xl font-bold text-[#A855F7]">AI Diagnosis Results</h1>
 
