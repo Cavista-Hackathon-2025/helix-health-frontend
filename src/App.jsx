@@ -25,7 +25,7 @@ function App() {
   async function getGoogleDetails() {
     window.googleAvailable = false
     const { data, err } = await Get("/api/user/google", setLoading)
-    if (!err) {
+    if (!err && data.projectId) {
       setGoogleClientId(data.projectId)
       window.googleAvailable = true
     }
