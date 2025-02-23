@@ -53,8 +53,8 @@ export default function Dashboard() {
                 </p>
               </div>
               <Button asChild className="w-full bg-purple-600 hover:bg-purple-700 group-hover:bg-purple-500">
-                <Link to="/diagnosis/new" className="flex items-center justify-between">
-                  Analyze Symptoms
+                <Link to="/diagnosis" className="flex items-center justify-between">
+                  Symptom Analysis
                   <ArrowRight size={16} />
                 </Link>
               </Button>
@@ -85,7 +85,7 @@ export default function Dashboard() {
 
         {/* Upload Document Section */}
         <div className="flex justify-center">
-          <Button 
+          <Button
             onClick={handleSubmit}
             className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2"
           >
