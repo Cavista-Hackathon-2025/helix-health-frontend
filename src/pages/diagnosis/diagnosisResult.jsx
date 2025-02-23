@@ -49,7 +49,7 @@ export default function DiagnosisResult() {
         </Card>
 
         {/* Advice Section */}
-        <Card className="p-6 space-y-4">
+        <Card className="p-6 space-y-4 mb-10">
           <h2 className="text-2xl font-semibold text-[#A855F7]">Medical Advice</h2>
           <div className="grid gap-4 md:grid-cols-2">
             {diagnosis.advice.map((item, index) => (
@@ -61,11 +61,7 @@ export default function DiagnosisResult() {
           </div>
         </Card>
 
-        <div className="flex justify-end">
-          <button className="rounded-full bg-[#A855F7] px-8 py-2 text-white hover:bg-blue-600 transition-colors">
-            Download Report
-          </button>
-        </div>
+       
       </div>
     </div>
   )
