@@ -1,4 +1,5 @@
 import helix from "@/assets/helix-purple.svg";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
@@ -11,12 +12,12 @@ const Nav = () => {
       </div>
       <div className="flex gap-10">
         <div className="">
-        <button className="rounded-full w-[8rem] py-2 bg-gradient-to-r from-purple-300 to-purple-500 hover:from-purple-600 hover:to-purple-800 transition-all font-bold duration-300 text-white">
+        <Link to="/signup" className="rounded-full w-[8rem] py-2 bg-gradient-to-r from-purple-300 to-purple-500 hover:from-purple-600 hover:to-purple-800 transition-all font-bold duration-300 text-white">
   Sign in
-</button>
+</Link>
         </div>
         <div>
-          <button className="rounded-full border-2 border-r-purple-500 text-black font-bold hover:bg-purple-700 hover:text-white hover:border-none w-[8rem] py-2">Log in</button>
+          <Link to="/login" className="rounded-full border-2 border-r-purple-500 text-black font-bold hover:bg-purple-700 hover:text-white hover:border-none w-[8rem] py-2">Log in</Link>
         </div>
       </div>
     </nav>

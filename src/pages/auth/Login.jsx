@@ -68,7 +68,7 @@ export default function LoginForm() {
         </form>
         <div className="text-center text-sm">
           <span className="text-gray-400">Don&apos;t have an account? </span>
-          <Link href="/signup" className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent hover:underline">
+          <Link to="/signup" className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent hover:underline">
             Sign up
           </Link>
         </div>

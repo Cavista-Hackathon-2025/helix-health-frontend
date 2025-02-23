@@ -2,23 +2,41 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState } from "react";
 import helixWhite from "@/assets/helix-white.svg"
-// import Link from "next/link"
-// import Image from "next/image"
+import { Post } from "@/utils/http"
+import { Link, useNavigate } from "react-router-dom"
+import { Report } from "notiflix"
+import { useDispatch } from "react-redux"
+import { setUser } from "@/redux/userReducer"
 
 export default function SignupForm() {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const value = e.target.value;
-
-    // Determine max length based on presence of '+'
     const maxLength = value.startsWith("+") ? 15 : 11;
-
-    // Allow only numbers and a leading '+' with conditional max length
     if (/^\+?[0-9]*$/.test(value) && value.length <= maxLength) {
       setPhone(value);
     }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const { data, err } = await Post("/api/user/register", { name, email, phone, password }, setLoading)
+    if (data) {
+      localStorage.setItem("token", data.token)
+      dispatch(setUser(data.user))
+      navigate("/")
+    } else {
+      Report.failure("Error", err)
+    }
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#1C1C1C]">
       <img src={helixWhite} alt="Helix" className="aspect-square w-10"/>
@@ -26,13 +44,15 @@ export default function SignupForm() {
         <div className="space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight text-white">Welcome to Helix</h1>
         </div>
-        <div className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Input
               id="name"
               placeholder="Full Name"
               required
               type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="bg-[#2A2A2A] border-0 text-white placeholder:text-gray-400"
             />
           </div>
@@ -42,6 +62,8 @@ export default function SignupForm() {
               placeholder="Email address"
               required
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="bg-[#2A2A2A] border-0 text-white placeholder:text-gray-400"
             />
           </div>
@@ -51,7 +73,7 @@ export default function SignupForm() {
               placeholder="Phone Number"
               required
               type="text"
-              value = {phone}
+              value={phone}
               onChange={handleChange}
               className="bg-[#2A2A2A] border-0 text-white placeholder:text-gray-400"
             />
@@ -62,16 +84,24 @@ export default function SignupForm() {
               placeholder="Password"
               required
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="bg-[#2A2A2A] border-0 text-white placeholder:text-gray-400"
             />
           </div>
-          <Button className="w-full bg-gradient-to-r from-purple-600 to-purple-800 hover:bg-purple-900 hover:bg-[#4F46E5]/90 text-white">Register</Button>
-        </div>
+          <Button
+            type="submit"
+            className="w-full bg-gradient-to-r from-purple-600 to-purple-800 hover:bg-purple-900 text-white"
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Register"}
+          </Button>
+        </form>
         <div className="text-center text-sm">
           <span className="text-gray-400">Already have an account? </span>
-          <a href="/login" className="bg-gradient-to-r from-purple-600 to-purple-800 text-transparent bg-clip-text hover:underline">
-            Sign up
-          </a>
+          <Link to="/login" className="bg-gradient-to-r from-purple-600 to-purple-800 text-transparent bg-clip-text hover:underline">
+            Login
+          </Link>
         </div>
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
@@ -98,6 +128,3 @@ export default function SignupForm() {
     </div>
   )
 }
-
-
-
