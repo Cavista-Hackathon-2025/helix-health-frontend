@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Plus, Upload, X, FileText } from "lucide-react"
 import dayjs from "dayjs"
 import PrescriptionEntry from "@/components/prescriptionEntry"
+import { Loading, Report } from "notiflix"
+import { Post } from "@/utils/http"
+import { useNavigate } from "react-router-dom"
 
 export default function PrescriptionScheduleForm() {
   const [prescriptions, setPrescriptions] = useState([])
@@ -16,6 +19,7 @@ export default function PrescriptionScheduleForm() {
   })
   const [image, setImage] = useState(null)
   const [imageDetails, setImageDetails] = useState(null)
+  const navigate = useNavigate()
 
   const handleInputChange = (field, value) => {
     setCurrentEntry((prev) => ({
@@ -43,22 +47,40 @@ export default function PrescriptionScheduleForm() {
   const handleImageUpload = (e) => {
     const file = e.target.files[0]
     if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setImage(reader.result)
-        setImageDetails({
-          name: file.name,
-          size: (file.size / 1024).toFixed(2) + ' KB'
-        })
-        setPrescriptions([])
-      }
-      reader.readAsDataURL(file)
+      setImage(file)
+      setImageDetails({
+        name: file.name,
+        size: (file.size / 1024).toFixed(2) + ' KB'
+      })
+      setPrescriptions([])
     }
   }
 
   const clearImage = () => {
     setImage(null)
     setImageDetails(null)
+  }
+
+  const handleSubmit = async () => {
+    // Handle form submission logic here
+    console.log('Submitting prescriptions:', prescriptions)
+    console.log('Submitting image:', image)
+    const formData = new FormData()
+    if (image) {
+      formData.append('image', image)
+    } else {
+      formData.append("prescriptions", JSON.stringify(prescriptions))
+    }
+
+    Loading.standard("Analyzing Please Wait....")
+    const { err } = await Post("/api/user/prescription-scheduling", formData)
+    if (!err) {
+      Report.success("Success", "Prescription Scheduled Successfully")
+      navigate("/")
+    } else {
+      Report.failure("Error", err)
+    }
+    Loading.remove()
   }
 
   return (
@@ -147,6 +169,15 @@ export default function PrescriptionScheduleForm() {
                   <Plus className="mr-2 h-4 w-4" /> Add Prescription
                 </Button>
               </div>
+            )}
+
+            {(prescriptions.length > 0 || image) && (
+              <Button
+                onClick={handleSubmit}
+                className="mt-6 w-full rounded-full bg-purple-600 hover:bg-purple-700"
+              >
+                Submit Prescription
+              </Button>
             )}
           </div>
         </Card>
