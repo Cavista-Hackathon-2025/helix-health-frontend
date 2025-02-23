@@ -128,7 +128,7 @@ export default function SymptomForm() {
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
 
-          <h1 className="font-bold  text-purple-600 text-4xl">AI Symptom Analysis</h1>
+          <h1 className="font-bold  text-purple-600 lg:text-4xl text-2xl">AI Symptom Analysis</h1>
         </div>
 
         {/* Progress Bar */}

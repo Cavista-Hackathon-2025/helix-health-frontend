@@ -14,8 +14,8 @@ function DiagnosisCard({ record }) {
         className="p-6 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer border-l-4 border-l-purple-500 mb-4"
       >
         <div className="flex flex-col gap-4">
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-semibold text-[#A855F7]">{record.title}</h2>
+          <div className="flex justify-between lg:items-center items-start flex-col lg:flex-row">
+            <h2 className="lg:text-2xl font-semibold text-[#A855F7]">{record.title}</h2>
             <span className="text-purple-600 bg-purple-100 px-3 py-1 rounded-full text-sm">
               {new Date(record.createdAt).toLocaleDateString()}
             </span>
@@ -64,7 +64,7 @@ export default function DiagnosisHistory() {
     <div className="min-h-screen p-6 lg:px-[10%] bg-gray-50">
       <div className="space-y-8">
         <div className="flex justify-between items-center mb-12">
-          <h1 className="text-3xl font-bold text-[#A855F7]">Diagnosis History</h1>
+          <h1 className="text-2xl lg:text-3xl font-bold text-[#A855F7]">Diagnosis History</h1>
           <Button asChild className="bg-[#A855F7] hover:bg-purple-700">
             <Link to="/diagnosis/new" className="flex items-center gap-2">
               <Brain size={20} />

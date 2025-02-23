@@ -2,7 +2,7 @@
 "use client"
 
 import { Card } from "@/components/ui/card"
-import { format } from "date-fns"
+import { Patch } from "@/utils/http"
 import {
   User,
   Mail,
@@ -14,47 +14,67 @@ import {
   Heart,
   AlertCircle,
   History,
-  Pill,
-  FileText,
 } from "lucide-react"
-
-// Mock data based on the schema
-const userData = {
-  id: 1,
-  name: "John Doe",
-  email: "john@example.com",
-  phone: "+1234567890",
-  country: "United States",
-  dob: new Date("1990-01-01"),
-  age: 33,
-  medicalInfos: [
-    {
-      weight: 70,
-      height: 175,
-      blood_pressure: "120/80",
-      alergies: ["Peanuts", "Penicillin"],
-      history: ["Asthma", "Seasonal Allergies"],
-    },
-  ],
-  prescriptions: [
-    {
-      drugName: "Ventolin",
-      dates: [new Date()],
-      frequency: "As needed",
-      ics: "inhaler",
-    },
-  ],
-  symptomAnalysis: [
-    {
-      title: "Seasonal Allergies",
-      advice: { recommendations: ["Avoid triggers", "Take antihistamines"] },
-      response: "Mild allergic reaction",
-      diets: { suggestions: ["Increase vitamin C intake"] },
-    },
-  ],
-}
+import { useDispatch, useSelector } from "react-redux"
+import { useState } from "react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Loading, Report } from "notiflix"
+import { setUser } from "@/redux/userReducer"
 
 export default function UserProfile() {
+  const user = useSelector(state => state.user.user)
+  const [isOpen, setIsOpen] = useState(false)
+  const [isMedicalOpen, setIsMedicalOpen] = useState(false)
+  const [medicalHistory, setMedicalHistory] = useState(user.medicalInfos[0].history || [])
+  const dispatch = useDispatch()
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+    Loading.standard()
+    const formData = new FormData(event.target)
+    const { err, data } = await Patch("/api/user", formData)
+    if (!err) {
+      setIsOpen(false)
+      dispatch(setUser(data.user))
+    } else {
+      Report.error("Error", err)
+    }
+    Loading.remove()
+  }
+
+  async function handleMedicalSubmit(event) {
+    event.preventDefault()
+    Loading.standard()
+    const formData = new FormData(event.target)
+    formData.set('history', JSON.stringify(medicalHistory))
+    const { err, data } = await Patch("/api/user/medicals", formData)
+    if (!err) {
+      setIsMedicalOpen(false)
+      dispatch(setUser(data.user))
+      Loading.remove()
+    } else {
+      Loading.remove()
+      Report.error("Error", err)
+    }
+  }
+
+  const addHistoryItem = () => {
+    setMedicalHistory([...medicalHistory, ''])
+  }
+
+  const updateHistoryItem = (index, value) => {
+    const newHistory = [...medicalHistory]
+    newHistory[index] = value
+    setMedicalHistory(newHistory)
+  }
+
+  const removeHistoryItem = (index) => {
+    const newHistory = medicalHistory.filter((_, i) => i !== index)
+    setMedicalHistory(newHistory)
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 p-4 md:p-8">
       <div className="mx-auto max-w-4xl">
@@ -63,6 +83,84 @@ export default function UserProfile() {
             User Profile
           </h1>
           <p className="text-purple-600">Your health information at a glance</p>
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogTrigger asChild>
+              <Button className="mt-4 mr-2" variant="outline">Edit Profile</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Edit Profile</DialogTitle>
+              </DialogHeader>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="text-sm font-medium">Name</label>
+                  <Input id="name" name="name" defaultValue={user.name} />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="text-sm font-medium">Phone</label>
+                  <Input id="phone" name="phone" defaultValue={user.phone} />
+                </div>
+                <div>
+                  <label htmlFor="password" className="text-sm font-medium">Password</label>
+                  <Input id="password" name="password" type="password" />
+                </div>
+                <div>
+                  <label htmlFor="country" className="text-sm font-medium">Country</label>
+                  <Input id="country" name="country" defaultValue={user.country} />
+                </div>
+                <div>
+                  <label htmlFor="image" className="text-sm font-medium">Profile Image</label>
+                  <Input id="image" name="image" type="file" accept="image/*" />
+                </div>
+                <Button type="submit">Save Changes</Button>
+              </form>
+            </DialogContent>
+          </Dialog>
+          <Dialog open={isMedicalOpen} onOpenChange={setIsMedicalOpen}>
+            <DialogTrigger asChild>
+              <Button className="mt-4" variant="outline">Edit Medical Info</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Edit Medical Information</DialogTitle>
+              </DialogHeader>
+              <form onSubmit={handleMedicalSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="weight" className="text-sm font-medium">Weight (kg)</label>
+                  <Input id="weight" name="weight" type="number" defaultValue={user.medicalInfos[0].weight} />
+                </div>
+                <div>
+                  <label htmlFor="height" className="text-sm font-medium">Height (cm)</label>
+                  <Input id="height" name="height" type="number" defaultValue={user.medicalInfos[0].height} />
+                </div>
+                <div>
+                  <label htmlFor="blood_pressure" className="text-sm font-medium">Blood Pressure</label>
+                  <Input id="blood_pressure" name="blood_pressure" defaultValue={user.medicalInfos[0].blood_pressure} />
+                </div>
+                <div>
+                  <label htmlFor="allergies" className="text-sm font-medium">Allergies (comma separated)</label>
+                  <Input id="allergies" name="allergies" defaultValue={user.medicalInfos[0].alergies?.join(", ")} />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Medical History</label>
+                  <div className="space-y-2">
+                    {medicalHistory.map((item, index) => (
+                      <div key={index} className="flex gap-2">
+                        <Input
+                          value={item}
+                          onChange={(e) => updateHistoryItem(index, e.target.value)}
+                          placeholder="Enter medical history item"
+                        />
+                        <Button type="button" variant="outline" onClick={() => removeHistoryItem(index)}>Remove</Button>
+                      </div>
+                    ))}
+                    <Button type="button" onClick={addHistoryItem}>Add History Item</Button>
+                  </div>
+                </div>
+                <Button type="submit">Save Medical Info</Button>
+              </form>
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div className="grid gap-6">
@@ -73,12 +171,11 @@ export default function UserProfile() {
             </div>
             <div className="p-6">
               <div className="grid gap-4 md:grid-cols-2">
-                <InfoItem icon={<User />} label="Name" value={userData.name} />
-                <InfoItem icon={<Mail />} label="Email" value={userData.email} />
-                <InfoItem icon={<Phone />} label="Phone" value={userData.phone} />
-                <InfoItem icon={<MapPin />} label="Country" value={userData.country} />
-                <InfoItem icon={<Calendar />} label="Date of Birth" value={format(userData.dob, "PPP")} />
-                <InfoItem icon={<User />} label="Age" value={`${userData.age} years`} />
+                <InfoItem icon={<User />} label="Name" value={user.name} />
+                <InfoItem icon={<Mail />} label="Email" value={user.email} />
+                <InfoItem icon={<Phone />} label="Phone" value={user.phone} />
+                <InfoItem icon={<MapPin />} label="Country" value={user.country} />
+                <InfoItem icon={<User />} label="Age" value={user.age ? `${user.age} years` : "Not Set"} />
               </div>
             </div>
           </Card>
@@ -90,82 +187,22 @@ export default function UserProfile() {
             </div>
             <div className="p-6">
               <div className="grid gap-4 md:grid-cols-2">
-                <InfoItem icon={<Weight />} label="Weight" value={`${userData.medicalInfos[0].weight} kg`} />
-                <InfoItem icon={<Ruler />} label="Height" value={`${userData.medicalInfos[0].height} cm`} />
-                <InfoItem icon={<Heart />} label="Blood Pressure" value={userData.medicalInfos[0].blood_pressure} />
+                <InfoItem icon={<Weight />} label="Weight" value={user.medicalInfos[0].weight ? `${user.medicalInfos[0].weight} kg` : "Not Set"} />
+                <InfoItem icon={<Ruler />} label="Height" value={user.medicalInfos[0].height ? `${user.medicalInfos[0].height} cm` : "Not Set"} />
+                <InfoItem icon={<Heart />} label="Blood Pressure" value={user.medicalInfos[0].blood_pressure} />
                 <InfoItem
                   icon={<AlertCircle />}
                   label="Allergies"
-                  value={userData.medicalInfos[0].alergies.join(", ")}
+                  value={user.medicalInfos[0]?.alergies?.join(", ")}
                 />
                 <InfoItem
                   icon={<History />}
                   label="Medical History"
-                  value={userData.medicalInfos[0].history.join(", ")}
+                  value={user.medicalInfos[0].history.map((item, index) => (
+                    <div key={index} className="p-2 rounded-md border my-2">{item}</div>
+                  ))}
                   className="md:col-span-2"
                 />
-              </div>
-            </div>
-          </Card>
-
-          {/* Prescriptions */}
-          <Card className="overflow-hidden backdrop-blur-sm">
-            <div className="border-b border-purple-100 bg-purple-50/30 p-4">
-              <h2 className="text-xl font-semibold text-purple-900">Current Prescriptions</h2>
-            </div>
-            <div className="p-6">
-              <div className="grid gap-4">
-                {userData.prescriptions.map((prescription, index) => (
-                  <div key={index} className="rounded-2xl border border-purple-100 bg-purple-50/50 p-4">
-                    <div className="flex items-center gap-2 text-purple-900">
-                      <Pill className="h-5 w-5" />
-                      <span className="font-semibold">{prescription.drugName}</span>
-                    </div>
-                    <div className="mt-2 grid gap-1 text-sm text-purple-600">
-                      <div>Frequency: {prescription.frequency}</div>
-                      <div>Type: {prescription.ics}</div>
-                      <div>Last Updated: {format(prescription.dates[0], "PPP")}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Card>
-
-          {/* Symptom Analysis History */}
-          <Card className="overflow-hidden backdrop-blur-sm">
-            <div className="border-b border-purple-100 bg-purple-50/30 p-4">
-              <h2 className="text-xl font-semibold text-purple-900">Recent Health Analysis</h2>
-            </div>
-            <div className="p-6">
-              <div className="grid gap-4">
-                {userData.symptomAnalysis.map((analysis, index) => (
-                  <div key={index} className="rounded-2xl border border-purple-100 bg-purple-50/50 p-4">
-                    <div className="flex items-center gap-2 text-purple-900">
-                      <FileText className="h-5 w-5" />
-                      <span className="font-semibold">{analysis.title}</span>
-                    </div>
-                    <div className="mt-2 grid gap-2 text-sm text-purple-600">
-                      <div>Response: {analysis.response}</div>
-                      <div>
-                        <div className="font-medium">Recommendations:</div>
-                        <ul className="ml-5 list-disc">
-                          {analysis.advice.recommendations.map((rec, i) => (
-                            <li key={i}>{rec}</li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <div className="font-medium">Dietary Suggestions:</div>
-                        <ul className="ml-5 list-disc">
-                          {analysis.diets.suggestions.map((sug, i) => (
-                            <li key={i}>{sug}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           </Card>
@@ -186,4 +223,3 @@ function InfoItem({ icon, label, value, className }) {
     </div>
   )
 }
-

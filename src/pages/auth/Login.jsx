@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { Report } from "notiflix"
 import { useDispatch } from "react-redux"
 import { setUser } from "@/redux/userReducer"
+import GoogleSignUpButton from "@/components/googleSignUpButton"
 
 export default function LoginForm() {
   const [email, setEmail] = useState("")
@@ -72,27 +73,19 @@ export default function LoginForm() {
             Sign up
           </Link>
         </div>
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-gray-700" />
+        {window.googleAvailable && <>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-gray-700" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-[#1C1C1C] px-2 text-gray-400">or</span>
+            </div>
           </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-[#1C1C1C] px-2 text-gray-400">or</span>
-          </div>
-        </div>
-        <Button
-          variant="outline"
-          className="w-full bg-[#2A2A2A] border-gray-700 text-white hover:bg-[#2A2A2A]/90 hover:text-white"
-        >
-          <img
-            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-            alt="Google Logo"
-            width={20}
-            height={20}
-            className="mr-2"
-          />
-          Sign in with Google
-        </Button>
+          <GoogleSignUpButton setState={setLoading} />
+        </>}
+
+
       </div>
     </div>
   )

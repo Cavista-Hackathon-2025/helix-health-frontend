@@ -13,28 +13,64 @@ import Auth from "./pages/auth/Auth";
 import DiagnosisResult from "./pages/diagnosis/diagnosisResult";
 import Dashboard from "./pages/dashboard";
 import DiagnosisHistory from "./pages/diagnosis/DiagnosisHistory";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useLayoutEffect, useState } from "react";
+import { Get } from "./utils/http";
+import FullScreenLoader from "./components/fullScreenLoader";
 
 function App() {
-  return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/signup" element={<SignupForm />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/" element={<Auth />}>
-            <Route index element={<Dashboard />} />
-            <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/diagnosis" element={<DiagnosisHistory />} />
-            <Route path="/diagnosis/new" element={<SymptomForm />} />
-            <Route path="/diagnosis/:id" element={<DiagnosisResult />} />
-            <Route path="/schedule/new" element={<PrescriptionScheduleForm />} />
-            <Route path="/profile" element={<UserProfile />} />
-          </Route>
+  const [loading, setLoading] = useState(false)
+  const [googleClientId, setGoogleClientId] = useState(false)
 
-        </Routes>
-      </BrowserRouter>
-    </Provider>
-  );
+  async function getGoogleDetails() {
+    window.googleAvailable = false
+    const { data, err } = await Get("/api/user/google", setLoading)
+    if (!err) {
+      setGoogleClientId(data.projectId)
+      window.googleAvailable = true
+    }
+  }
+
+
+
+  useLayoutEffect(() => {
+    getGoogleDetails();
+  }, [])
+
+  if (loading) return <FullScreenLoader title="Loading Application..." />
+
+  if (googleClientId) {
+    return (
+      <GoogleOAuthProvider clientId={googleClientId}>
+        <MainLogic />
+      </GoogleOAuthProvider>
+
+    );
+  }
+
+  return <MainLogic />
+
+}
+
+function MainLogic() {
+  return <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/signup" element={<SignupForm />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/" element={<Auth />}>
+          <Route index element={<Dashboard />} />
+          <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/diagnosis" element={<DiagnosisHistory />} />
+          <Route path="/diagnosis/new" element={<SymptomForm />} />
+          <Route path="/diagnosis/:id" element={<DiagnosisResult />} />
+          <Route path="/schedule/new" element={<PrescriptionScheduleForm />} />
+          <Route path="/profile" element={<UserProfile />} />
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
+  </Provider>
 }
 
 export default App;

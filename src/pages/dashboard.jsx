@@ -1,10 +1,16 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Stethoscope, Calendar, ArrowRight } from "lucide-react";
+import { Stethoscope, Calendar, ArrowRight, User, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import logo from "@/assets/helix-white.svg";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSelector } from "react-redux";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Dashboard() {
   const user = useSelector((state) => state.user.user);
@@ -23,8 +29,8 @@ export default function Dashboard() {
   return (
     <div className="h-screen bg-[#1C1917] text-white top-0 left-0 overflow-auto fixed w-full">
       {/* Gradient Decorative Elements */}
-      <div className="w-screen h-full fixed top-0 right-0  bg-gradient-to-b from-pink-500 via-blue-500 to-purple-500 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2 max-h-screen " />
-      <div className="w-screen h-full max-h-screen fixed bottom-0 left-0 bg-gradient-to-t from-purple-500 via-pink-500 to-blue-500 rounded-full blur-3xl opacity-20 translate-y-1/2 -translate-x-1/2" />
+      <div className="w-screen h-screen fixed top-0 right-0  bg-gradient-to-b from-pink-500 via-blue-500 to-purple-500 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2 max-h-screen " />
+      <div className="w-screen h-screen max-h-screen fixed bottom-0 left-0 bg-gradient-to-t from-purple-500 via-pink-500 to-blue-500 rounded-full blur-3xl opacity-20 translate-y-1/2 -translate-x-1/2" />
 
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 py-8 space-y-12 max-w-7xl mx-auto">
@@ -37,13 +43,34 @@ export default function Dashboard() {
               </div>
               <h1 className="text-3xl font-bold">Helix</h1>
             </div>
-            <div className="h-10 w-10 rounded-full flex items-center justify-center">
-              <Avatar>
-                <AvatarFallback className="text-white font-bold bg-purple-700">
-                  {getInitials(user.name)}
-                </AvatarFallback>
-              </Avatar>
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="rounded-full focus:outline-none">
+                  <Avatar className="w-10 h-10 cursor-pointer">
+                    <AvatarImage src={user.profileImage} />
+                    <AvatarFallback className="text-white font-bold bg-purple-700">
+                      {getInitials(user.name)}
+                    </AvatarFallback>
+                  </Avatar>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem className="cursor-pointer">
+                  <Link to="/profile" className="flex items-center gap-2 w-full">
+                    <User size={16} />
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer text-red-600">
+                  <Link to="/login" className="flex items-center gap-2 w-full" onClick={() => {
+                    localStorage.removeItem("token");
+                  }}>
+                    <LogOut size={16} />
+                    <span>Logout</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           <div className="max-w-2xl">
             <h2 className="text-4xl font-bold mb-4">
