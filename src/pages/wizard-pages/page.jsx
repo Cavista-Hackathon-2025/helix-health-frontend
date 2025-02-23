@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, Sparkle } from "lucide-react"
 // import BasicInformation from "@/pages/wizard-pages/basic-information"
 import SymptomIdentification from "@/pages/wizard-pages/symptom-identification"
 import SymptomContext from "@/pages/wizard-pages/symptom-context"
@@ -9,14 +9,14 @@ import AdditionalSymptoms from "@/pages/wizard-pages/additional-symptoms"
 import PossibleTriggers from "@/pages/wizard-pages/possible-triggers"
 import LifestyleFactors from "@/pages/wizard-pages/lifestyle-factors"
 import UrgencyAssessment from "@/pages/wizard-pages/urgency-assessment"
-// import Nav from "@/components/Nav"
-import AuthenticatedNav from "@/components/AuthenticatedNav"
 import { ExtraPromptUpload } from "@/pages/wizard-pages/Extra-prompt-upload"
-import { Loading } from "notiflix"
+import { Loading, Report } from "notiflix"
 import { Post } from "@/utils/http"
+import { useNavigate } from "react-router-dom"
 
 export default function SymptomForm() {
   const [step, setStep] = useState(1)
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     // Symptom Identification
     symptoms: [],
@@ -70,15 +70,35 @@ export default function SymptomForm() {
   }
 
   const handleSubmit = async () => {
+    console.log(formData)
+    if (formData.symptoms.length === 0 && formData.additionalSymptoms.length === 0) {
+      Report.warning("Required Field", "Please select at least one symptom");
+      return;
+    }
+    if (!formData.severity) {
+      Report.warning("Required Field", "Please indicate symptom severity");
+      return;
+    }
+    if (!formData.frequency) {
+      Report.warning("Required Field", "Please indicate symptom frequency");
+      return;
+    }
+
     Loading.standard("Analyzing Please Wait....")
-    const images = formData.files
+    const { images } = formData
     const prompt = { ...formData, images: undefined }
-    const formData = new FormData()
-    formData.append("prompt", JSON.stringify(prompt))
+    const formDataToSend = new FormData()
+    formDataToSend.append("prompt", JSON.stringify(prompt))
     images.forEach(image => {
-      formData.append("images", image, image.name)
+      formDataToSend.append("file", image, image.name)
     })
-    const { data, err } = await Post("/api/user/prompt", formData)
+    const { data, err } = await Post("/api/user/symptom-analysis", formDataToSend)
+    if (!err) {
+      Report.success("AI analysis complete")
+      navigate("/diagnosis/" + data.data.id)
+    } else {
+      Report.failure("Error", err)
+    }
     Loading.remove()
   }
 
@@ -134,11 +154,17 @@ export default function SymptomForm() {
                 <ChevronLeft className="mr-2 h-4 w-4" /> Previous
               </Button>
               <Button
-                onClick={nextStep}
-                disabled={step === totalSteps}
+                onClick={() => {
+                  step == totalSteps ? handleSubmit() : nextStep()
+                }}
                 className="rounded-full bg-purple-600 hover:bg-purple-700"
               >
-                Next <ChevronRight className="ml-2 h-4 w-4" />
+                {step == totalSteps ? <>
+                  Submit <Sparkle />
+                </> : <>
+                  Next <ChevronRight className="ml-2 h-4 w-4" /></>
+                }
+
               </Button>
             </div>
           </div>
@@ -147,4 +173,3 @@ export default function SymptomForm() {
     </div>
   )
 }
-

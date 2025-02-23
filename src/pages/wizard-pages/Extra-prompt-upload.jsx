@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FileUp, FileText, X } from "lucide-react";
 import { Textarea } from "../../components/ui/textarea";
 
-export const ExtraPromptUpload = ({ data, updateData, onSubmit }) => {
+export const ExtraPromptUpload = ({ data, updateData }) => {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [files, setFiles] = useState([]);
 
@@ -13,12 +13,7 @@ export const ExtraPromptUpload = ({ data, updateData, onSubmit }) => {
     if (selectedFiles.length > 0) {
       setFiles([...files, ...selectedFiles]);
     }
-    updateData({ ...data, files: [...(data.files || []), ...selectedFiles] });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit();
+    updateData({ ...data, images: [...(data.files || []), ...selectedFiles] });
   };
 
   const handleTextInput = (e) => {
@@ -46,7 +41,7 @@ export const ExtraPromptUpload = ({ data, updateData, onSubmit }) => {
       </h2>
       <div className="flex gap-8">
         <form
-          onSubmit={handleSubmit}
+          onSubmit={e => e.preventDefault()}
           className={`flex flex-col gap-5 ${files.length > 0 ? 'w-2/3' : 'w-full'} items-center space-x-2`}
         >
           <Textarea
@@ -69,9 +64,6 @@ export const ExtraPromptUpload = ({ data, updateData, onSubmit }) => {
                 multiple
               />
             </label>
-          </Button>
-          <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700">
-            Submit
           </Button>
         </form>
         {files.length > 0 && (
