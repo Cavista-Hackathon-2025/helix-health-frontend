@@ -31,7 +31,7 @@ const AuthenticatedNav = () => {
     <nav className="flex lg:justify-between gap-4 items-center p-4">
       <Link className="flex items-center gap-4" to="/">
         <img src={helix} alt="Helix" className="aspect-square w-10 hover:scale-110 transition-transform" />
-        <h1 className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-4xl font-bold text-transparent">
+        <h1 className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-4xl font-bold text-transparent">
           Helix
         </h1>
       </Link>
@@ -39,14 +39,14 @@ const AuthenticatedNav = () => {
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex gap-10">
-        <Link to="/diagnosis" className="text-gray-700 hover:text-purple-600 transition-colors font-medium flex flex-row items-center gap-1"><Brain /> Symptom Analysis</Link>
-        <Link to="/schedule/new" className="text-gray-700 hover:text-purple-600 transition-colors font-medium flex flex-row items-center gap-1"><Calendar /> Prescription Scheduling</Link>
+        <Link to="/diagnosis" className="text-gray-700 hover:text-blue-600 transition-colors font-medium flex flex-row items-center gap-1"><Brain /> Symptom Analysis</Link>
+        <Link to="/schedule/new" className="text-gray-700 hover:text-blue-600 transition-colors font-medium flex flex-row items-center gap-1"><Calendar /> Prescription Scheduling</Link>
       </div>
 
       {/* Mobile Menu */}
       <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
         <SheetTrigger asChild>
-          <button className="md:hidden text-gray-700 hover:text-purple-600">
+          <button className="md:hidden text-gray-700 hover:text-blue-600">
             <Menu />
           </button>
         </SheetTrigger>
@@ -55,7 +55,7 @@ const AuthenticatedNav = () => {
             <div className="flex items-center gap-2 mb-4">
               <Avatar className="w-10 h-10" >
                 <AvatarImage src={user.profileImage} />
-                <AvatarFallback className="text-white font-bold bg-purple-600">
+                <AvatarFallback className="text-white font-bold bg-blue-600">
                   {getInitials(user.name)}
                 </AvatarFallback>
               </Avatar>
@@ -63,14 +63,14 @@ const AuthenticatedNav = () => {
             </div>
             <Link
               to="/diagnosis"
-              className="text-gray-700 hover:text-purple-600 transition-colors font-medium flex flex-row items-center gap-1"
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium flex flex-row items-center gap-1"
               onClick={() => setIsSidebarOpen(false)}
             >
               <Brain /> Symptom Analysis
             </Link>
             <Link
               to="/schedule/new"
-              className="text-gray-700 hover:text-purple-600 transition-colors font-medium flex flex-row items-center gap-1"
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium flex flex-row items-center gap-1"
               onClick={() => setIsSidebarOpen(false)}
             >
               <Calendar /> Prescription Scheduling
@@ -84,7 +84,7 @@ const AuthenticatedNav = () => {
           <button className="rounded-full focus:outline-none">
             <Avatar className="w-10 h-10 cursor-pointer">
               <AvatarImage src={user.profileImage} />
-              <AvatarFallback className="text-white font-bold bg-purple-600">
+              <AvatarFallback className="text-white font-bold bg-blue-600">
                 {getInitials(user.name)}
               </AvatarFallback>
             </Avatar>

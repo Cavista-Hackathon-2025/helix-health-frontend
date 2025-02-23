@@ -31,7 +31,7 @@ export default function SymptomContext({ data, updateData }) {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold text-purple-900">Symptom Context</h2>
+      <h2 className="text-2xl font-semibold text-blue-900">Symptom Context</h2>
       <div className="space-y-4">
         <div>
           <Label>How often do symptoms occur?</Label>

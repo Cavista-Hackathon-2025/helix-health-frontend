@@ -59,7 +59,7 @@ export default function AdditionalSymptoms({ data, updateData }) {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold text-purple-900">Additional Symptoms & Conditions</h2>
+      <h2 className="text-2xl font-semibold text-blue-900">Additional Symptoms & Conditions</h2>
       <div className="space-y-4">
         <div>
           <Label>Additional Symptoms</Label>
@@ -127,8 +127,8 @@ export default function AdditionalSymptoms({ data, updateData }) {
               value={data.medicationList}
               onChange={(e) => updateData({ medicationList: e.target.value })}
               placeholder="Enter your current medications"
-              className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                       focus-visible:border-purple-200 focus-visible:ring-purple-100"
+              className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                       focus-visible:border-blue-200 focus-visible:ring-blue-100"
             />
           </div>
         )}

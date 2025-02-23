@@ -8,7 +8,7 @@ export default function LifestyleFactors({ data, updateData }) {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold text-purple-900">Lifestyle & Risk Factors</h2>
+      <h2 className="text-2xl font-semibold text-blue-900">Lifestyle & Risk Factors</h2>
       <div className="space-y-4">
         <div>
           <Label>Do you smoke or use tobacco?</Label>

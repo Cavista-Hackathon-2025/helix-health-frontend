@@ -124,22 +124,22 @@ export default function SymptomForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-4 md:p-8">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
 
-          <h1 className="font-bold  text-purple-600 lg:text-4xl text-2xl">AI Symptom Analysis</h1>
+          <h1 className="font-bold  text-blue-600 lg:text-4xl text-2xl">AI Symptom Analysis</h1>
         </div>
 
         {/* Progress Bar */}
         <div className="mb-8">
-          <div className="relative h-2 rounded-full bg-purple-100">
+          <div className="relative h-2 rounded-full bg-blue-100">
             <div
-              className="absolute left-0 h-2 rounded-full bg-purple-600 transition-all duration-300"
+              className="absolute left-0 h-2 rounded-full bg-blue-600 transition-all duration-300"
               style={{ width: `${(step / totalSteps) * 100}%` }}
             />
           </div>
-          <div className="mt-2 text-center text-sm text-purple-600">
+          <div className="mt-2 text-center text-sm text-blue-600">
             Step {step} of {totalSteps}
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function SymptomForm() {
                 onClick={() => {
                   step == totalSteps ? handleSubmit() : nextStep()
                 }}
-                className="rounded-full bg-purple-600 hover:bg-purple-700"
+                className="rounded-full bg-blue-600 hover:bg-blue-700"
               >
                 {step == totalSteps ? <>
                   Submit <Sparkle />

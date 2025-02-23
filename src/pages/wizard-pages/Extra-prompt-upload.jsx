@@ -36,7 +36,7 @@ export const ExtraPromptUpload = ({ data, updateData }) => {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold text-purple-900">
+      <h2 className="text-2xl font-semibold text-blue-900">
         Some Extra Information
       </h2>
       <div className="flex gap-8">
@@ -51,9 +51,9 @@ export const ExtraPromptUpload = ({ data, updateData }) => {
             value={textAreaValue}
             onChange={handleTextInput}
           />
-          <Button asChild className="w-full bg-purple-600 hover:bg-purple-700">
+          <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
             <label className="cursor-pointer">
-              <span>Upload Files</span>
+              <span>Upload Medical Files</span>
               <span>
                 <FileUp />
               </span>

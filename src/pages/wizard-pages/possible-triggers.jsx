@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 export default function PossibleTriggers({ data, updateData }) {
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold text-purple-900">Possible Triggers & Exposure</h2>
+      <h2 className="text-2xl font-semibold text-blue-900">Possible Triggers & Exposure</h2>
       <div className="space-y-4">
         <div>
           <Label>Have you been in contact with someone who was sick recently?</Label>

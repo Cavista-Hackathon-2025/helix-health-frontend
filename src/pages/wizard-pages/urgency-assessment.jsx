@@ -17,7 +17,7 @@ export default function UrgencyAssessment({ data, updateData }) {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold text-purple-900">Urgency Assessment</h2>
+      <h2 className="text-2xl font-semibold text-blue-900">Urgency Assessment</h2>
 
       {data.emergencySymptoms.length > 0 && (
         <Alert variant="destructive">

@@ -92,7 +92,7 @@ export default function SignupForm() {
           </div>
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-purple-600 to-purple-800 hover:bg-purple-900 text-white"
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:bg-blue-900 text-white"
             disabled={loading}
           >
             {loading ? "Loading..." : "Register"}
@@ -100,7 +100,7 @@ export default function SignupForm() {
         </form>
         <div className="text-center text-sm">
           <span className="text-gray-400">Already have an account? </span>
-          <Link to="/login" className="bg-gradient-to-r from-purple-600 to-purple-800 text-transparent bg-clip-text hover:underline">
+          <Link to="/login" className="bg-gradient-to-r from-blue-600 to-blue-800 text-transparent bg-clip-text hover:underline">
             Login
           </Link>
         </div>

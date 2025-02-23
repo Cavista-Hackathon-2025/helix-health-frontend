@@ -36,7 +36,7 @@ export default function Onboarding() {
         <Card className="backdrop-blur-sm">
           <div className="p-6">
             <div className="space-y-6">
-              <h2 className="text-2xl font-semibold text-purple-900">
+              <h2 className="text-2xl font-semibold text-blue-900">
                 Basic Information
               </h2>
               <p>Complete your Registration Process</p>
@@ -49,8 +49,8 @@ export default function Onboarding() {
                     value={formData.name}
                     onChange={(e) => setFormData({ name: e.target.value })}
                     placeholder="Enter your name"
-                    className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                     focus-visible:border-purple-200 focus-visible:ring-purple-100"
+                    className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                     focus-visible:border-blue-200 focus-visible:ring-blue-100"
                   />
                 </div>
 
@@ -62,8 +62,8 @@ export default function Onboarding() {
                     value={formData.age}
                     onChange={(e) => setFormData({ age: e.target.value })}
                     placeholder="Enter your age"
-                    className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                     focus-visible:border-purple-200 focus-visible:ring-purple-100"
+                    className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                     focus-visible:border-blue-200 focus-visible:ring-blue-100"
                   />
                 </div>
 
@@ -90,8 +90,8 @@ export default function Onboarding() {
                     value={formData.weight}
                     onChange={(e) => setFormData({ weight: e.target.value })}
                     placeholder="Enter your weight"
-                    className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                     focus-visible:border-purple-200 focus-visible:ring-purple-100"
+                    className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                     focus-visible:border-blue-200 focus-visible:ring-blue-100"
                   />
                 </div>
 
@@ -103,8 +103,8 @@ export default function Onboarding() {
                     value={formData.height}
                     onChange={(e) => setFormData({ height: e.target.value })}
                     placeholder="Enter your height"
-                    className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                     focus-visible:border-purple-200 focus-visible:ring-purple-100"
+                    className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                     focus-visible:border-blue-200 focus-visible:ring-blue-100"
                   />
                 </div>
 
@@ -116,8 +116,8 @@ export default function Onboarding() {
                     value={formData.bloodPressure}
                     onChange={(e) => setFormData({ bloodPressure: e.target.value })}
                     placeholder="e.g., 120/80"
-                    className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                     focus-visible:border-purple-200 focus-visible:ring-purple-100"
+                    className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                     focus-visible:border-blue-200 focus-visible:ring-blue-100"
                   />
                 </div>
 
@@ -129,8 +129,8 @@ export default function Onboarding() {
                     value={formData.medications}
                     onChange={(e) => setFormData({ medications: e.target.value })}
                     placeholder="List any current medications..."
-                    className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                     focus-visible:border-purple-200 focus-visible:ring-purple-100"
+                    className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                     focus-visible:border-blue-200 focus-visible:ring-blue-100"
                   />
                 </div>
 
@@ -142,8 +142,8 @@ export default function Onboarding() {
                     value={formData.medicalConditions}
                     onChange={(e) => setFormData({ medicalConditions: e.target.value })}
                     placeholder="List any existing medical conditions..."
-                    className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                     focus-visible:border-purple-200 focus-visible:ring-purple-100"
+                    className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                     focus-visible:border-blue-200 focus-visible:ring-blue-100"
                   />
                 </div>
 
@@ -155,8 +155,8 @@ export default function Onboarding() {
                     value={data}
                     onChange={(e) => setData(e.target.value)}
                     placeholder="Enter Allergies Separated by comma..."
-                    className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                     focus-visible:border-purple-200 focus-visible:ring-purple-100"
+                    className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                     focus-visible:border-blue-200 focus-visible:ring-blue-100"
                   />
                 </div>
               </div>
@@ -164,7 +164,7 @@ export default function Onboarding() {
             <div className="mt-8 flex justify-center items-center">
               <Button
                 onClick={handleClick}
-                className="rounded-lg w-2/4  bg-purple-600 hover:bg-purple-700"
+                className="rounded-lg w-2/4  bg-blue-600 hover:bg-blue-700"
               >
                 Submit
               </Button>

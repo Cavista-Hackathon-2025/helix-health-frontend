@@ -19,8 +19,8 @@ export default function PrescriptionEntry({ currentEntry, handleInputChange }) {
           value={currentEntry.drugName}
           onChange={(e) => handleInputChange("drugName", e.target.value)}
           placeholder="Enter drug name"
-          className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                   focus-visible:border-purple-200 focus-visible:ring-purple-100"
+          className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                   focus-visible:border-blue-200 focus-visible:ring-blue-100"
         />
       </div>
 
@@ -31,8 +31,8 @@ export default function PrescriptionEntry({ currentEntry, handleInputChange }) {
           value={currentEntry.duration}
           onChange={(e) => handleInputChange("duration", e.target.value)}
           placeholder="e.g., 7 days, 2 weeks"
-          className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                   focus-visible:border-purple-200 focus-visible:ring-purple-100"
+          className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                   focus-visible:border-blue-200 focus-visible:ring-blue-100"
         />
       </div>
 
@@ -43,8 +43,8 @@ export default function PrescriptionEntry({ currentEntry, handleInputChange }) {
           value={currentEntry.frequency}
           onChange={(e) => handleInputChange("frequency", e.target.value)}
           placeholder="e.g., Twice daily, Every 8 hours"
-          className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                   focus-visible:border-purple-200 focus-visible:ring-purple-100"
+          className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                   focus-visible:border-blue-200 focus-visible:ring-blue-100"
         />
       </div>
 
@@ -55,8 +55,8 @@ export default function PrescriptionEntry({ currentEntry, handleInputChange }) {
             <Button
               variant="outline"
               className={cn(
-                "mt-1.5 w-full justify-start border-purple-100 bg-purple-50/50 text-left font-normal hover:bg-purple-100/50",
-                !currentEntry.startDate && "text-purple-400",
+                "mt-1.5 w-full justify-start border-blue-100 bg-blue-50/50 text-left font-normal hover:bg-blue-100/50",
+                !currentEntry.startDate && "text-blue-400",
               )}
             >
               <CalendarIcon className="mr-2 h-4 w-4" />

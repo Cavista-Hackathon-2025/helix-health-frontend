@@ -61,7 +61,7 @@ export default function LoginForm() {
           </div>
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-purple-600 to-purple-800 hover:bg-purple-900 text-white"
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:bg-blue-900 text-white"
             disabled={loading}
           >
             {loading ? "Loading..." : "Login"}
@@ -69,7 +69,7 @@ export default function LoginForm() {
         </form>
         <div className="text-center text-sm">
           <span className="text-gray-400">Don&apos;t have an account? </span>
-          <Link to="/signup" className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent hover:underline">
+          <Link to="/signup" className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent hover:underline">
             Sign up
           </Link>
         </div>

@@ -28,6 +28,7 @@ export default function UserProfile() {
   const [isOpen, setIsOpen] = useState(false)
   const [isMedicalOpen, setIsMedicalOpen] = useState(false)
   const [medicalHistory, setMedicalHistory] = useState(user.medicalInfos[0].history || [])
+  const [allergies, setAllergies] = useState(user.medicalInfos[0].alergies || [])
   const dispatch = useDispatch()
 
   async function handleSubmit(event) {
@@ -49,6 +50,7 @@ export default function UserProfile() {
     Loading.standard()
     const formData = new FormData(event.target)
     formData.set('history', JSON.stringify(medicalHistory))
+    formData.set('alergies', JSON.stringify(allergies))
     const { err, data } = await Patch("/api/user/medicals", formData)
     if (!err) {
       setIsMedicalOpen(false)
@@ -75,14 +77,29 @@ export default function UserProfile() {
     setMedicalHistory(newHistory)
   }
 
+  const addAllergyItem = () => {
+    setAllergies([...allergies, ''])
+  }
+
+  const updateAllergyItem = (index, value) => {
+    const newAllergies = [...allergies]
+    newAllergies[index] = value
+    setAllergies(newAllergies)
+  }
+
+  const removeAllergyItem = (index) => {
+    const newAllergies = allergies.filter((_, i) => i !== index)
+    setAllergies(newAllergies)
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-4 md:p-8">
       <div className="mx-auto max-w-4xl">
         <div className="mb-8 text-center">
-          <h1 className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-4xl font-bold text-transparent">
+          <h1 className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-4xl font-bold text-transparent">
             User Profile
           </h1>
-          <p className="text-purple-600">Your health information at a glance</p>
+          <p className="text-blue-600">Your health information at a glance</p>
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
               <Button className="mt-4 mr-2" variant="outline">Edit Profile</Button>
@@ -99,6 +116,10 @@ export default function UserProfile() {
                 <div>
                   <label htmlFor="phone" className="text-sm font-medium">Phone</label>
                   <Input id="phone" name="phone" defaultValue={user.phone} />
+                </div>
+                <div>
+                  <label htmlFor="age" className="text-sm font-medium">Age</label>
+                  <Input id="age" name="age" defaultValue={user.age} />
                 </div>
                 <div>
                   <label htmlFor="password" className="text-sm font-medium">Password</label>
@@ -120,7 +141,7 @@ export default function UserProfile() {
             <DialogTrigger asChild>
               <Button className="mt-4" variant="outline">Edit Medical Info</Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Edit Medical Information</DialogTitle>
               </DialogHeader>
@@ -138,8 +159,20 @@ export default function UserProfile() {
                   <Input id="blood_pressure" name="blood_pressure" defaultValue={user.medicalInfos[0].blood_pressure} />
                 </div>
                 <div>
-                  <label htmlFor="allergies" className="text-sm font-medium">Allergies (comma separated)</label>
-                  <Input id="allergies" name="allergies" defaultValue={user.medicalInfos[0].alergies?.join(", ")} />
+                  <label className="text-sm font-medium">Allergies</label>
+                  <div className="space-y-2">
+                    {allergies.map((item, index) => (
+                      <div key={index} className="flex gap-2">
+                        <Input
+                          value={item}
+                          onChange={(e) => updateAllergyItem(index, e.target.value)}
+                          placeholder="Enter allergy"
+                        />
+                        <Button type="button" variant="outline" onClick={() => removeAllergyItem(index)}>Remove</Button>
+                      </div>
+                    ))}
+                    <Button type="button" onClick={addAllergyItem}>Add Allergy</Button>
+                  </div>
                 </div>
                 <div>
                   <label className="text-sm font-medium">Medical History</label>
@@ -160,14 +193,13 @@ export default function UserProfile() {
                 <Button type="submit">Save Medical Info</Button>
               </form>
             </DialogContent>
-          </Dialog>
-        </div>
+          </Dialog>        </div>
 
         <div className="grid gap-6">
           {/* Basic Information */}
           <Card className="overflow-hidden backdrop-blur-sm">
-            <div className="border-b border-purple-100 bg-purple-50/30 p-4">
-              <h2 className="text-xl font-semibold text-purple-900">Basic Information</h2>
+            <div className="border-b border-blue-100 bg-blue-50/30 p-4">
+              <h2 className="text-xl font-semibold text-blue-900">Basic Information</h2>
             </div>
             <div className="p-6">
               <div className="grid gap-4 md:grid-cols-2">
@@ -182,8 +214,8 @@ export default function UserProfile() {
 
           {/* Medical Information */}
           <Card className="overflow-hidden backdrop-blur-sm">
-            <div className="border-b border-purple-100 bg-purple-50/30 p-4">
-              <h2 className="text-xl font-semibold text-purple-900">Medical Information</h2>
+            <div className="border-b border-blue-100 bg-blue-50/30 p-4">
+              <h2 className="text-xl font-semibold text-blue-900">Medical Information</h2>
             </div>
             <div className="p-6">
               <div className="grid gap-4 md:grid-cols-2">
@@ -193,14 +225,22 @@ export default function UserProfile() {
                 <InfoItem
                   icon={<AlertCircle />}
                   label="Allergies"
-                  value={user.medicalInfos[0]?.alergies?.join(", ")}
+                  value={<div className="flex flex-wrap gap-2">
+                    {user.medicalInfos[0].alergies.map((item, index) => (
+                      <div key={index} className="p-2 rounded-md border my-2">{item}</div>
+                    ))}
+                  </div>}
                 />
                 <InfoItem
                   icon={<History />}
                   label="Medical History"
-                  value={user.medicalInfos[0].history.map((item, index) => (
-                    <div key={index} className="p-2 rounded-md border my-2">{item}</div>
-                  ))}
+                  value={<div className="">
+                    {
+                      user.medicalInfos[0].history.map((item, index) => (
+                        <div key={index} className="p-2 rounded-md border my-2 w-full">{item}</div>
+                      ))
+                    }
+                  </div>}
                   className="md:col-span-2"
                 />
               </div>
@@ -214,11 +254,11 @@ export default function UserProfile() {
 
 function InfoItem({ icon, label, value, className }) {
   return (
-    <div className={`flex items-start gap-3 rounded-2xl border border-purple-100 bg-purple-50/50 p-4 ${className}`}>
-      <div className="mt-0.5 text-purple-600">{icon}</div>
-      <div>
-        <div className="text-sm text-purple-600">{label}</div>
-        <div className="font-medium text-purple-900">{value}</div>
+    <div className={`flex items-start gap-3 rounded-2xl border border-blue-100 bg-blue-50/50 p-4 ${className}`}>
+      <div className="mt-0.5 text-blue-600">{icon}</div>
+      <div className="w-full">
+        <div className="text-sm text-blue-600">{label}</div>
+        <div className="font-medium text-blue-900">{value}</div>
       </div>
     </div>
   )

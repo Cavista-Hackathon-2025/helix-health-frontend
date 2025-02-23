@@ -40,9 +40,9 @@ export default function DiagnosisResult() {
           <h2 className="text-2xl font-semibold text-[#A855F7]">Recommended Diet</h2>
           <div className="grid gap-4 md:grid-cols-2">
             {diagnosis.diets.map((diet, index) => (
-              <div key={index} className="rounded-lg border border-purple-100 bg-purple-50 p-4">
-                <h3 className="font-medium text-purple-900">{diet.name}</h3>
-                <p className="mt-1 text-sm text-purple-700">{diet.reason}</p>
+              <div key={index} className="rounded-lg border border-blue-100 bg-blue-50 p-4">
+                <h3 className="font-medium text-blue-900">{diet.name}</h3>
+                <p className="mt-1 text-sm text-blue-700">{diet.reason}</p>
               </div>
             ))}
           </div>
@@ -53,16 +53,16 @@ export default function DiagnosisResult() {
           <h2 className="text-2xl font-semibold text-[#A855F7]">Medical Advice</h2>
           <div className="grid gap-4 md:grid-cols-2">
             {diagnosis.advice.map((item, index) => (
-              <div key={index} className="rounded-lg border border-purple-100 bg-purple-50 p-4">
-                <h3 className="font-medium text-purple-900">{item.name}</h3>
-                <p className="mt-1 text-sm text-purple-700">{item.reason}</p>
+              <div key={index} className="rounded-lg border border-blue-100 bg-blue-50 p-4">
+                <h3 className="font-medium text-blue-900">{item.name}</h3>
+                <p className="mt-1 text-sm text-blue-700">{item.reason}</p>
               </div>
             ))}
           </div>
         </Card>
 
         <div className="flex justify-end">
-          <button className="rounded-full bg-[#A855F7] px-8 py-2 text-white hover:bg-purple-600 transition-colors">
+          <button className="rounded-full bg-[#A855F7] px-8 py-2 text-white hover:bg-blue-600 transition-colors">
             Download Report
           </button>
         </div>

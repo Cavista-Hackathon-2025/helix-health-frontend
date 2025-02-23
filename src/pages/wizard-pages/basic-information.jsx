@@ -11,8 +11,8 @@ function OtherInput({ value, onChange, placeholder }) {
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                     focus-visible:border-purple-200 focus-visible:ring-purple-100"
+      className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                     focus-visible:border-blue-200 focus-visible:ring-blue-100"
     />
   )
 }
@@ -22,7 +22,7 @@ export default function BasicInformation({ data, updateData }) {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold text-purple-900">Basic Information</h2>
+      <h2 className="text-2xl font-semibold text-blue-900">Basic Information</h2>
       <div className="space-y-4">
         <div>
           <Label htmlFor="age">Age</Label>
@@ -32,8 +32,8 @@ export default function BasicInformation({ data, updateData }) {
             value={data.age}
             onChange={(e) => updateData({ age: e.target.value })}
             placeholder="Enter your age"
-            className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                     focus-visible:border-purple-200 focus-visible:ring-purple-100"
+            className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                     focus-visible:border-blue-200 focus-visible:ring-blue-100"
           />
         </div>
 
@@ -63,8 +63,8 @@ export default function BasicInformation({ data, updateData }) {
             value={data.weight}
             onChange={(e) => updateData({ weight: e.target.value })}
             placeholder="Enter your weight"
-            className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                     focus-visible:border-purple-200 focus-visible:ring-purple-100"
+            className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                     focus-visible:border-blue-200 focus-visible:ring-blue-100"
           />
         </div>
 
@@ -76,8 +76,8 @@ export default function BasicInformation({ data, updateData }) {
             value={data.height}
             onChange={(e) => updateData({ height: e.target.value })}
             placeholder="Enter your height"
-            className="mt-1.5 border-purple-100 bg-purple-50/50 placeholder:text-purple-400
-                     focus-visible:border-purple-200 focus-visible:ring-purple-100"
+            className="mt-1.5 border-blue-100 bg-blue-50/50 placeholder:text-blue-400
+                     focus-visible:border-blue-200 focus-visible:ring-blue-100"
           />
         </div>
       </div>

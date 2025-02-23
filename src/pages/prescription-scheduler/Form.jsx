@@ -84,13 +84,13 @@ export default function PrescriptionScheduleForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-4 md:p-8">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8 text-center">
-          <h1 className="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-4xl font-bold text-transparent">
+          <h1 className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-4xl font-bold text-transparent">
             Prescription Details
           </h1>
-          <p className="text-purple-600">Enter your prescription information or upload an image</p>
+          <p className="text-blue-600">Enter your prescription information or upload an image</p>
         </div>
 
         <Card className="backdrop-blur-sm">
@@ -98,14 +98,14 @@ export default function PrescriptionScheduleForm() {
             <div className="mb-8">
               <Label className="mb-2 block">Upload Prescription Image</Label>
               <div className="flex items-center gap-4">
-                <label className="flex h-32 w-full cursor-pointer items-center justify-center rounded-3xl border-2 border-dashed border-purple-200 bg-purple-50/50 transition-colors hover:border-purple-300 hover:bg-purple-100/50">
+                <label className="flex h-32 w-full cursor-pointer items-center justify-center rounded-3xl border-2 border-dashed border-blue-200 bg-blue-50/50 transition-colors hover:border-blue-300 hover:bg-blue-100/50">
                   <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                   {image ? (
                     <div className="flex items-center gap-4">
-                      <FileText className="h-8 w-8 text-purple-600" />
+                      <FileText className="h-8 w-8 text-blue-600" />
                       <div className="flex flex-col">
                         <span className="font-medium">{imageDetails.name}</span>
-                        <span className="text-sm text-purple-600">{imageDetails.size}</span>
+                        <span className="text-sm text-blue-600">{imageDetails.size}</span>
                       </div>
                       <Button
                         variant="ghost"
@@ -114,13 +114,13 @@ export default function PrescriptionScheduleForm() {
                           e.preventDefault()
                           clearImage()
                         }}
-                        className="ml-4 text-purple-600 hover:bg-purple-100"
+                        className="ml-4 text-blue-600 hover:bg-blue-100"
                       >
                         Clear
                       </Button>
                     </div>
                   ) : (
-                    <div className="text-center text-purple-400">
+                    <div className="text-center text-blue-400">
                       <Upload className="mx-auto mb-2 h-6 w-6" />
                       <span>Upload prescription image</span>
                     </div>
@@ -131,26 +131,26 @@ export default function PrescriptionScheduleForm() {
 
             {prescriptions.length > 0 && !image && (
               <div className="mb-6">
-                <h3 className="mb-4 text-lg font-semibold text-purple-900">Added Prescriptions</h3>
+                <h3 className="mb-4 text-lg font-semibold text-blue-900">Added Prescriptions</h3>
                 <div className="space-y-3">
                   {prescriptions.map((prescription) => (
                     <div
                       key={prescription.id}
-                      className="flex items-center justify-between rounded-2xl border border-purple-100 bg-purple-50/50 p-4"
+                      className="flex items-center justify-between rounded-2xl border border-blue-100 bg-blue-50/50 p-4"
                     >
                       <div className="grid gap-1">
                         <div className="font-medium">{prescription.drugName}</div>
-                        <div className="text-sm text-purple-600">
+                        <div className="text-sm text-blue-600">
                           {prescription.frequency} for {prescription.duration}
                         </div>
-                        <div className="text-sm text-purple-600">
+                        <div className="text-sm text-blue-600">
                           Starting from {dayjs(prescription.startDate).format("MMMM D, YYYY")}
                         </div>
                       </div>
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 rounded-full text-purple-600 hover:bg-purple-100 hover:text-purple-700"
+                        className="h-8 w-8 rounded-full text-blue-600 hover:bg-blue-100 hover:text-blue-700"
                         onClick={() => handleRemovePrescription(prescription.id)}
                       >
                         <X className="h-4 w-4" />
@@ -163,9 +163,9 @@ export default function PrescriptionScheduleForm() {
 
             {!image && (
               <div className="mb-6">
-                <h2 className="mb-4 text-lg font-semibold text-purple-900">Or Enter Details Manually</h2>
+                <h2 className="mb-4 text-lg font-semibold text-blue-900">Or Enter Details Manually</h2>
                 <PrescriptionEntry currentEntry={currentEntry} handleInputChange={handleInputChange} />
-                <Button onClick={handleAddPrescription} className="mt-6 rounded-full bg-purple-600 hover:bg-purple-700">
+                <Button onClick={handleAddPrescription} className="mt-6 rounded-full bg-blue-600 hover:bg-blue-700">
                   <Plus className="mr-2 h-4 w-4" /> Add Prescription
                 </Button>
               </div>
@@ -174,7 +174,7 @@ export default function PrescriptionScheduleForm() {
             {(prescriptions.length > 0 || image) && (
               <Button
                 onClick={handleSubmit}
-                className="mt-6 w-full rounded-full bg-purple-600 hover:bg-purple-700"
+                className="mt-6 w-full rounded-full bg-blue-600 hover:bg-blue-700"
               >
                 Submit Prescription
               </Button>

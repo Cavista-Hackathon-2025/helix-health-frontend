@@ -7,7 +7,7 @@ export function PillButton({ children, selected, onClick, className, ...props })
       variant="outline"
       className={cn(
         "rounded-full transition-colors",
-        selected ? "bg-purple-100 text-purple-900 hover:bg-purple-200" : "hover:bg-purple-50",
+        selected ? "bg-blue-100 text-blue-900 hover:bg-blue-200" : "hover:bg-blue-50",
         className,
       )}
       onClick={onClick}
