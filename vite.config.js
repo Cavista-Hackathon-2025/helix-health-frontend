@@ -12,8 +12,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        // target: "https://helix-cavista-backend.onrender.com",
-        target: "http://localhost:5000",
+        target: "https://helix-backend-o3k3.onrender.com",
+        // target: "http://localhost:5000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, "")
       }
@@ -24,7 +24,7 @@ export default defineConfig({
     allowedHosts: true,
     proxy: {
       "/api": {
-        target: "https://helix-cavista-backend.onrender.com",
+        target: "https://helix-backend-o3k3.onrender.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, "")
       }
