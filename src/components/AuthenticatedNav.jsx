@@ -1,4 +1,5 @@
 import helix from "@/assets/helix-purple.svg"
+import { Link } from "react-router-dom";
 
 const AuthenticatedNav = () => {
   return (
@@ -10,8 +11,8 @@ const AuthenticatedNav = () => {
         </h1>
       </div>
       <div className="flex gap-10">
-        <a href="" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">Analyse Symptoms</a>
-        <a href="" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">Analyse Prescription</a>
+        <Link to="/diagnosis" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">Symptom Analysis</Link>
+        <Link to="/schedule/new" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">Prescription Scheduling</Link>
       </div>
       <a href="" className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium">Profile</a>
     </nav>
