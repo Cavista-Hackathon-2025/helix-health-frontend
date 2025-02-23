@@ -20,6 +20,7 @@ export default defineConfig({
     }
   },
   preview: {
-    host: true
+    host: true,
+    allowedHosts: true
   }
 });
