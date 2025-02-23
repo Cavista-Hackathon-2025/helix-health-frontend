@@ -1,10 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Stethoscope, Calendar, ArrowRight } from "lucide-react"
+import { Stethoscope, Calendar, ArrowRight, Upload } from "lucide-react"
 import { Link } from "react-router-dom"
 import logo from "@/assets/helix-white.svg"
 
 export default function Dashboard() {
+  const handleSubmit = () => {
+    // Add your backend submission logic here
+  }
+
   return (
     <div className="h-screen bg-[#1C1917] text-white top-0 left-0 overflow-auto fixed w-full">
       {/* Gradient Decorative Elements */}
@@ -49,7 +53,7 @@ export default function Dashboard() {
                 </p>
               </div>
               <Button asChild className="w-full bg-purple-600 hover:bg-purple-700 group-hover:bg-purple-500">
-                <Link to="/symptoms" className="flex items-center justify-between">
+                <Link to="/diagnosis/new" className="flex items-center justify-between">
                   Analyze Symptoms
                   <ArrowRight size={16} />
                 </Link>
@@ -70,7 +74,7 @@ export default function Dashboard() {
                 </p>
               </div>
               <Button asChild className="w-full bg-pink-600 hover:bg-pink-700 group-hover:bg-pink-500">
-                <Link to="/prescriptions" className="flex items-center justify-between">
+                <Link to="/schedule/new" className="flex items-center justify-between">
                   Manage Prescriptions
                   <ArrowRight size={16} />
                 </Link>
@@ -79,6 +83,16 @@ export default function Dashboard() {
           </Card>
         </div>
 
+        {/* Upload Document Section */}
+        <div className="flex justify-center">
+          <Button 
+            onClick={handleSubmit}
+            className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2"
+          >
+            <Upload size={16} />
+            Submit Document
+          </Button>
+        </div>
 
         {/* Footer */}
         <footer className="border-t border-gray-800 pt-8 mt-12">
