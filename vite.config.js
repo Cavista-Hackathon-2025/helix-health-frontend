@@ -12,10 +12,14 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
+        target: "https://helix-cavista-backend.onrender.com",
+        // target: "http://localhost:5000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, "")
       }
     }
+  },
+  preview: {
+    host: true
   }
 });
